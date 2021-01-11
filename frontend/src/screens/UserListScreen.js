@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 
 const UserListScreen = ({ history }) => {
     const dispatch = useDispatch();
@@ -15,22 +15,30 @@ const UserListScreen = ({ history }) => {
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
 
+    const userDelete = useSelector(state => state.userDelete);
+    const { success:successDelete } = userDelete;
+
     useEffect(() => {
         if(userInfo && userInfo.isAdmin){
             dispatch(listUsers());
         } else {
-            history.pushState('/login')
+            history.push('/login');
         }
-    }, [dispatch, history])
+    }, [dispatch, history, successDelete, userInfo])
 
-    const deleteHandler = () => {
-        console.log('delete');
+    const deleteHandler = (id) => {
+        if(window.confirm('Are you sure you want to delete this user?'))
+        dispatch(deleteUser(id))
     }
 
 	return (
         <>
         <h1>Users</h1>
-        {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> : (
+        {loading ? 
+        <Loader/> 
+        : error ? 
+        (<Message variant='danger'>{error}</Message>) 
+        : (
             <Table striped bordered hover responsive className='table-sm'>
                 <thead>
                     <tr>
@@ -40,6 +48,7 @@ const UserListScreen = ({ history }) => {
                     <th>ADMIN</th> 
                     <th></th> 
                     </tr>
+                    </thead>
                     <tbody>
                         {users.map(user => (
                             <tr key={user._id}>
@@ -50,7 +59,7 @@ const UserListScreen = ({ history }) => {
                                 : (<i className='fas fa-check' style={{ color: 'red'}}></i>)
                                 }</td>
                                 <td>
-                                    <LinkContainer to={`/user/${user._id}/edit`}>
+                                    <LinkContainer to={`/admin/user/${user._id}/edit`}>
                                         <Button variant='light' className='btn-sm'>
                                             <i className='fas fa-edit'></i>
                                         </Button>
@@ -63,7 +72,7 @@ const UserListScreen = ({ history }) => {
                             </tr>
                         ))}
                     </tbody>
-                </thead>
+           
             </Table>
         )}
         </>
