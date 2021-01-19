@@ -24,18 +24,18 @@ const ProductScreen = ({ history, match }) => {
     const { userInfo } = userLogin;
 
     const productReviewCreate = useSelector(state => state.productReviewCreate)
-    const { success: successProductReview, error: errorProductReview } = productReviewCreate;
+    const {loading: loadingProductReview, success: successProductReview, error: errorProductReview } = productReviewCreate;
 
     useEffect(() => {
-        if(successProductReview){
-            alert('Review submitted!')
-            setRating(0)
-            setComment('0')
-            dispatch({ type:  PRODUCT_CREATE_REVIEW_RESET})
+        if (successProductReview) {
+          setRating(0)
+          setComment('')
         }
-
-        dispatch(listProductDetails(match.params.id))
-     }, [dispatch, match, successProductReview])
+        if (!product._id || product._id !== match.params.id) {
+          dispatch(listProductDetails(match.params.id))
+          dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
+        }
+      }, [dispatch, match, successProductReview ])
 
     const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -140,6 +140,12 @@ const ProductScreen = ({ history, match }) => {
 ))}
                         <ListGroup.Item>
                             <h2>Write a Customer Review</h2>
+                            {successProductReview && (
+                    <Message variant='success'>
+                      Review submitted successfully
+                    </Message>
+                  )}
+                  {loadingProductReview && <Loader />}
                             {errorProductReview && <Message variant='danger'>{errorProductReview}</Message>}
                             {userInfo ? (
                                 <Form onSubmit={submitHandler}>
@@ -165,7 +171,11 @@ const ProductScreen = ({ history, match }) => {
                                             >
                                             </Form.Control>
                                     </Form.Group>
-                                    <Button type='submit' variant='primary'>Submit</Button>
+                                    <Button
+                        disabled={loadingProductReview}
+                        type='submit'
+                        variant='primary'
+                      >Submit</Button>
                                 </Form>
                             ) : (
                                 <Message>Please <Link to='/login'>sign in</Link> to write a review{''}</Message>

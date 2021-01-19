@@ -22,6 +22,7 @@ import {
 	PRODUCT_TOP_REQUEST,
 	PRODUCT_TOP_SUCCESS,
 	PRODUCT_TOP_FAIL,
+	PRODUCT_CREATE_REVIEW_RESET,
 } from '../constants/productConstants';
 
 export const listProducts = (keyword = '', pageNumber = '') => async (dispatch) => {
@@ -52,6 +53,8 @@ export const listProductDetails = (id) => async (dispatch) => {
 			type: PRODUCT_DETAILS_SUCCESS,
 			payload: data,
 		});
+
+		dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
 	} catch (error) {
 		dispatch({
 			type: PRODUCT_DETAILS_FAIL,
@@ -130,7 +133,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 			},
 		};
 
-		const { data } = await axios.put(`/api/products/:${product._id}`, product, config);
+		const { data } = await axios.put(`/api/products/${product._id}`, product, config);
 
 		dispatch({
 			type: PRODUCT_UPDATE_SUCCESS,

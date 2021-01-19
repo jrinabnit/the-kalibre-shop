@@ -141,11 +141,11 @@ const getUserById = asyncHandler(async (req, res) => {
 	}
 });
 
-// @desc Update user profile
-// @route PUT /api/users/profile
-// @access Private
+// @desc Update user
+// @route PUT /api/users/:id
+// @access Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
-	const user = await User.findById(req.user.id);
+	const user = await User.findById(req.params.id);
 
 	if (user) {
 		user.name = req.body.name || user.name;

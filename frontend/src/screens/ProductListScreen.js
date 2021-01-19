@@ -18,7 +18,7 @@ const ProductListScreen = ({ history, match }) => {
     const productDelete = useSelector(state => state.productDelete);
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
 
-    const productCreate = useSelector(state => state.productDelete);
+    const productCreate = useSelector(state => state.productCreate);
     const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate;
 
     const userLogin = useSelector(state => state.userLogin);
