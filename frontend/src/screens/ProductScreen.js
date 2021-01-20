@@ -14,7 +14,6 @@ const ProductScreen = ({ history, match }) => {
     const [ rating, setRating ] = useState(0);
     const [ comment, setComment ] = useState('');
 
-
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
@@ -35,19 +34,22 @@ const ProductScreen = ({ history, match }) => {
           dispatch(listProductDetails(match.params.id))
           dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
         }
-      }, [dispatch, match, successProductReview ])
-
-    const addToCartHandler = () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [dispatch, match, successProductReview])
+    
+      const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
-    }
-
-    const submitHandler = (e) => {
+      }
+    
+      const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(createProductReview(match.params.id, {
-            rating, 
-            comment
-        }))
-    }
+        dispatch(
+          createProductReview(match.params.id, {
+            rating,
+            comment,
+          })
+        )
+      }
 
 
 	return <>
@@ -67,7 +69,9 @@ const ProductScreen = ({ history, match }) => {
                         <h2>{product.name}</h2>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
+                        <Rating 
+                        value={product.rating} 
+                        text={`${product.numReviews} reviews`} />
                     </ListGroup.Item>
                     <ListGroup.Item>
                         ${product.price}
