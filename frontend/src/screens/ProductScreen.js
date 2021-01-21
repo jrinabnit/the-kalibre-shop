@@ -29,13 +29,14 @@ const ProductScreen = ({ history, match }) => {
         if (successProductReview) {
           setRating(0)
           setComment('')
+          dispatch(listProductDetails(match.params.id))
         }
         if (!product._id || product._id !== match.params.id) {
           dispatch(listProductDetails(match.params.id))
           dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
         }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [dispatch, match, successProductReview])
+      
+      }, [dispatch, match, successProductReview, product._id])
     
       const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -50,7 +51,6 @@ const ProductScreen = ({ history, match }) => {
           })
         )
       }
-
 
 	return <>
         <Link className='btn btn-light my-3' to='/'>
@@ -71,7 +71,8 @@ const ProductScreen = ({ history, match }) => {
                     <ListGroup.Item>
                         <Rating 
                         value={product.rating} 
-                        text={`${product.numReviews} reviews`} />
+                        text={`${product.numReviews} reviews`} /> 
+                        
                     </ListGroup.Item>
                     <ListGroup.Item>
                         ${product.price}
