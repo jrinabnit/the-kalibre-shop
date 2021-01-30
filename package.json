@@ -4,7 +4,9 @@
   "description": "e-commerce shop",
   "main": "index.js",
   "type": "module",
-  "engines": { "node": ">=12.19.0" },
+  "engines": {
+    "node": "14.15.1"
+  },
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
