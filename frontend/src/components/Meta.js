@@ -12,9 +12,9 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-	title: 'Welcome to the Gear Shop',
-	description: 'We sell the best products at fantastic prices',
-	keywords: 'electronics, buy electronics, cheap electronics',
+	title: 'Welcome to Kalibre',
+	description: 'A complete line of backpacks built for your adventurous lifestyle',
+	keywords: 'backpacks, buy backpacks, best backpacks',
 };
 
 export default Meta;

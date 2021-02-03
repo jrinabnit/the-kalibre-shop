@@ -1,9 +1,9 @@
 import React from 'react';
-import { Route} from 'react-router-dom'
+import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Nav, Container, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav, Container, Navbar, NavDropdown, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import SearchBox from './SearchBox'
+import SearchBox from './SearchBox';
 import { logout } from '../actions/userActions';
 
 const Header = () => {
@@ -20,14 +20,14 @@ const Header = () => {
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
 				<Container>
 					<LinkContainer to='/'>
-						<Navbar.Brand>The Gear Shop</Navbar.Brand>
+						{/* <Image src='../kalibrelogo.png' alt='kalibre' /> */}
+						<Navbar.Brand>KALIBRE</Navbar.Brand>
 					</LinkContainer>
-
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
-					<Route render={({ history })=> <SearchBox history={history} /> }/>
-						<Nav className='ml-auto' >
-							<LinkContainer to='/cart' >
+						<Route render={({ history }) => <SearchBox history={history} />} />
+						<Nav className='ml-auto'>
+							<LinkContainer to='/cart'>
 								<Nav.Link href='/cart'>
 									<i className='fas fa-shopping-cart' /> Cart
 								</Nav.Link>
