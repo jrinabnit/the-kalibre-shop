@@ -16,7 +16,9 @@ Password: 12345678
 
 As a user, you can register or log in with a username or google account, add items to a cart, check out and pay with PayPal, update your user profile, and rate and review products.  
   
+    
 Log in as an admin:  
+  
 Name: Admin User  
 Email: admin@example.com  
 
