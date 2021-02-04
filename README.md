@@ -1,7 +1,7 @@
 # The Kalibre Shop
 An e-commerce shop using React, React-Bootstrap, Redux, Express, Node, and MongoDB.
 
-View it live at ...
+View it live at http://kalibre.herokuapp.com/
 
 # Log in and have a look around!
 
